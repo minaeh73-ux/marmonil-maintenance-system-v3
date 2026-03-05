@@ -1,0 +1,7 @@
+{
+  "name": "Marmonil Maintenance V5.5",
+  "description": "Smart Maintenance Management System for Marmonil Factory. Feature: Production \u0026 Availability KPI Engine (22h Cycle).",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

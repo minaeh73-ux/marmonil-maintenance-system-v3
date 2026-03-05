@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Marmonil Maintenance System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary-cobalt: #2563eb;
+        --industrial-dark: #0f172a;
+        --industrial-bg: #f8fafc;
+        --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--industrial-bg);
+        -webkit-tap-highlight-color: transparent;
+        color: #1e293b;
+      }
+
+      /* Liquid Button Styles */
+      .btn-liquid, .btn-industrial, button:not(.nav-item-btn):not(.tab-btn) {
+        @apply transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-90 hover:scale-[1.03] cursor-pointer;
+        border-radius: 9999px; /* Force pill shape for liquid feel */
+      }
+
+      .btn-industrial {
+        @apply font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 px-10 py-5;
+      }
+      
+      .btn-primary {
+        @apply bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 text-white shadow-[0_15px_30px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_25px_45px_-10px_rgba(37,99,235,0.6)] border border-white/20;
+        background-size: 200% 200%;
+        animation: liquid-gradient 8s ease infinite;
+      }
+
+      @keyframes liquid-gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .btn-secondary {
+        @apply bg-gradient-to-br from-slate-800 to-slate-950 text-white shadow-[0_15px_30px_-10px_rgba(15,23,42,0.5)] hover:shadow-[0_25px_45px_-10px_rgba(15,23,42,0.6)] border border-white/10;
+      }
+
+      .btn-outline {
+        @apply bg-white/60 backdrop-blur-2xl text-slate-600 border border-slate-200/50 shadow-sm hover:bg-white/90 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40;
+      }
+
+      .btn-liquid-glass {
+        @apply bg-white/10 backdrop-blur-3xl border border-white/20 text-slate-900 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] hover:bg-white/20 hover:shadow-[0_15px_40px_-5px_rgba(0,0,0,0.2)] transition-all duration-500;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Liquid Hover Glow */
+      button:hover {
+        filter: brightness(1.1);
+      }
+      
+      button:active {
+        filter: brightness(0.9);
+      }
+      
+      /* Specific overrides for non-pill buttons */
+      .nav-item-btn {
+        @apply rounded-xl transition-all duration-300 active:scale-95;
+      }
+      
+      .tab-btn {
+        @apply rounded-none transition-all duration-300;
+      }
+
+      /* Tactile Card Style */
+      .card-industrial {
+        @apply bg-white border border-slate-200 shadow-sm rounded-[2rem] overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50;
+      }
+
+      /* --- Layout Controls --- */
+      @media (max-width: 992px) {
+        .desktop-sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar-open .desktop-sidebar {
+          transform: translateX(0);
+        }
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+
+      /* Professional PDF Styles */
+      @media print {
+        .no-print { display: none !important; }
+        .print\:hidden { display: none !important; }
+        .print\:block { display: block !important; }
+
+        .pdf-header {
+           padding-bottom: 2rem;
+           margin-bottom: 2rem;
+           border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .pdf-footer {
+          position: fixed;
+          bottom: 1.5cm;
+          left: 0;
+          right: 0;
+          text-align: center;
+          font-size: 10px;
+          color: #64748b;
+        }
+        
+        /* Watermark for confidential documents */
+        .watermark {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-45deg);
+          font-size: 80px;
+          color: rgba(0, 0, 0, 0.05); /* Very light gray */
+          pointer-events: none;
+          z-index: -1;
+          white-space: nowrap;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+
+        /* Page breaks */
+        .avoid-break {
+            page-break-inside: avoid !important;
+        }
+
+        /* Page numbering */
+        @page {
+          @bottom-center {
+            content: "Page " counter(page) " of " counter(pages);
+          }
+        }
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+        "recharts": "https://esm.sh/recharts@^3.7.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+        "xlsx": "https://esm.sh/xlsx@0.18.5"
+      }
+    }
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
